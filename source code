@@ -1,0 +1,23 @@
+import requests
+
+# Fetching JSON data from the API
+url = "https://s3.amazonaws.com/open-to-cors/assignment.json"
+response = requests.get(url)
+
+if response.status_code == 200:
+    # Parsing JSON data
+    data = response.json()
+
+    # Sorting the data based on descending popularity
+    sorted_data = sorted(data, key=lambda x: x['Popularity'], reverse=True)
+
+    # Displaying the data with Title, Price ordered by descending popularity
+    for product in sorted_data:
+        print(f"Title: {product['Title']}")
+        print(f"Price: {product['Price']}")
+        print(f"Popularity: {product['Popularity']}")
+        print(f"Subcategory: {product['Subcategory']}")
+        print("=" * 30)
+
+else:
+    print(f"Failed to fetch data. Status code: {response.status_code}")
